@@ -1,0 +1,9 @@
+{
+  "hosting": [
+    {
+      "target": "booking-client",
+      "source": ".",
+      "frameworksBackend": {}
+    }
+  ]
+}

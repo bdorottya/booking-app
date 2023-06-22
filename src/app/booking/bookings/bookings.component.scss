@@ -1,0 +1,64 @@
+.booking-panel{
+  max-width:100%;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  .card{
+    min-width: 300px;
+    margin:  2%;
+    background-color: rgba(210, 239, 252, 0.3);
+  }
+  .slide-container{
+    display: flex;
+    flex-wrap: no-wrap;
+    overflow-x: scroll;
+
+    .booking-slide{
+      display: flex;
+      flex-direction: column;
+      justify-content: space-evenly;
+      background-color: white;
+      max-width: 45%;
+      border-radius: 10px;
+      box-shadow: 0 0 3px grey;
+      padding: 2% 5%;
+      margin: 2% 2% 7% 3%;
+    }
+  }
+
+  .pending-bookings, .active-bookings{
+    h3{
+      span{
+        font-size: 54px;
+        font-weight: 500;
+      }
+      padding: 5%;
+      color: dodgerblue;
+    }
+  }
+  .booking-list{
+    width: 1000px;
+    display: flex;
+    flex-direction: column;
+    .row{
+      cursor: pointer;
+      &:nth-child(odd){
+        background-color: #eee;
+      }
+      &:hover{
+        background-color: rgb(238, 245, 255);
+      }
+      max-width:100%;
+      padding: 10px 5px;
+      display: flex;
+      justify-content: space-around;
+      .col{
+        text-align: center;
+        margin: 0 10px;
+        width: 15%;
+      }
+    }
+    .header-row{
+      font-weight: 600;
+    }
+  }
+}

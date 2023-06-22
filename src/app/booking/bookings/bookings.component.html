@@ -1,0 +1,49 @@
+<div class="overlay" *ngIf="isLoading">
+  <mat-spinner></mat-spinner>
+</div>
+<section class="component-container">
+  <div class="flexbox booking-panel">
+    <div class="card pending-bookings">
+      <h3><span>{{pendings.length}}</span> new</h3>
+      <div class="slide-container">
+        <div class="booking-slide" *ngFor="let booking of pendings">
+          <h4>{{booking.data.arrivalDate.toMillis() | date: 'yyyy.MM.dd'}} - {{booking.data.departureDate.toMillis() | date: 'yyyy.MM.dd'}}</h4>
+          <h4>{{booking.data.numberOfGuests}} Guests</h4>
+          <h5>{{booking.data.roomType}}</h5>
+          <button mat-button class="positive-btn-green" (click)="acceptBooking(booking.id)">Accept Booking</button>
+        </div>
+      </div>
+    </div>
+    <div class="card active-bookings">
+      <h3><span>{{accepted.length}}</span> active booking(s)</h3>
+      <div class="slide-container">
+        <div class="booking-slide" *ngFor="let booking of accepted">
+          <h4>{{booking.data.arrivalDate.toMillis() | date: 'yyyy.MM.dd'}} - {{booking.data.departureDate.toMillis() | date: 'yyyy.MM.dd'}}</h4>
+          <h4>{{booking.data.numberOfGuests}} Guests</h4>
+          <h5>{{booking.data.roomType}}</h5>
+        </div>
+      </div>
+    </div>
+    <div class="card archived-bookings"></div>
+    <div class="card booking-list">
+      <div class="row header-row">
+        <div class="col">Room Type</div>
+        <div class="col">Booked from</div>
+        <div class="col">Booked to</div>
+        <div class="col">Guest Name</div>
+        <div class="col">Guest Email</div>
+        <div class="col">Number of guests</div>
+        <div class="col">Booking Status</div>
+      </div>
+      <div class="row" *ngFor="let book of allBooking" (click)="bookingDetails(book)">
+        <div class="col">{{book.roomType}}</div>
+        <div class="col">{{book.arrivalDate.toMillis() | date: 'yyyy.MM.dd'}}</div>
+        <div class="col">{{book.departureDate.toMillis() | date: 'yyyy.MM.dd'}}</div>
+        <div class="col">{{book.guestName}}</div>
+        <div class="col">{{book.guestEmail}}</div>
+        <div class="col">{{book.numberOfGuests}}</div>
+        <div class="col">{{book.bookingStatus}}</div>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "hotel-demo-59d0e": {
+      "hosting": {
+        "booking-client": [
+          "hotel-demo-59d0e"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "hotel-demo-59d0e"
+  }
+}

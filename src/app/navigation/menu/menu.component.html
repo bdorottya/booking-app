@@ -1,0 +1,11 @@
+<aside>
+  <nav>
+    <button routerLink="/admin" mat-button [ngClass]="this.activeRoute == 'admin' ? 'active-route' : ''">Dashboard</button>
+    <button routerLink="/bookings"mat-button [ngClass]="this.activeRoute == 'bookings' ? 'active-route' : ''">Bookings</button>
+    <button mat-button>Rooms</button>
+    <button mat-button>Calendar</button>
+    <button mat-button>Staff</button>
+    <button mat-button>Reviews</button>
+    <button mat-button>Repairs</button>
+  </nav>
+</aside>

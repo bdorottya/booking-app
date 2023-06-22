@@ -1,0 +1,16 @@
+aside{
+  padding-top: 30%;
+  margin: 5% 1% 0 0;
+  nav{
+    display: flex;
+    flex-direction: column;
+    button{
+      padding: 10px 50px;
+    }
+  }
+}
+
+.active-route{
+  background: #eee;
+}
+

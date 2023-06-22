@@ -1,0 +1,14 @@
+.login{
+  margin: 15% auto;
+  padding: 5%;
+  max-width: 400px;
+  form{
+    display: flex;
+    flex-direction: column;
+  }
+  a{
+    font-size: 12px;
+    text-align: center;
+    margin-top: 5%;
+  }
+}

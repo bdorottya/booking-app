@@ -1,0 +1,32 @@
+.container{
+  margin: 2%;
+  max-width: 100%;
+  .controls{
+    display: flex;
+    justify-content: space-evenly;
+  }
+  .month-container{
+    display: flex;
+    margin-top: 3%;
+    .first-month, .second-month{
+      width: 50%;
+      margin: 0 1%;
+      box-shadow: 0 0 15px grey;
+      border-radius: 15px;
+      padding: 2% 1%;
+    }
+    .row{
+      display: flex;
+      justify-content: space-evenly;
+      .col{
+        width: 15%;
+        text-align: center;
+      }
+    }
+  }
+}
+
+.selected{
+  background: lightgreen;
+  max-width: 100%;
+}

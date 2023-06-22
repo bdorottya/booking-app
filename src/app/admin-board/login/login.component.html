@@ -1,0 +1,14 @@
+<div class="card login">
+  <form [formGroup]="loginForm" (ngSubmit)="submitForm()">
+    <mat-form-field appearance="outline">
+      <mat-label>E-mail address</mat-label>
+      <input formControlName='email' type="email" matInput name="email" autocomplete="email">
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Password</mat-label>
+      <input formControlName="password" matInput name="password" autocomplete="current-password" type="password">
+    </mat-form-field>
+    <button class="positive-btn" type="submit" mat-button>Bejelentkezés</button>
+    <a>Password reset</a>
+  </form>
+</div>
