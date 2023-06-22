@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AppService } from 'src/app/app.service';
 import { BookingService } from '../booking.service';
 import { Observable, ReplaySubject } from 'rxjs';
-import { MatDialog } from '@angular/material/dialog';
+import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
 import { BookingDetailComponent } from '../booking-detail/booking-detail.component';
 
 @Component({

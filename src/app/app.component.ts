@@ -7,7 +7,7 @@ import { AppService } from './app.service';
 import { Observable, Subscription } from 'rxjs';
 import { Auth } from '@angular/fire/auth';
 import { AdminService } from './admin-board/admin.service';
-import { MatDialog } from '@angular/material/dialog';
+import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
 import { LoginComponent } from './admin-board/login/login.component';
 
 @Component({
