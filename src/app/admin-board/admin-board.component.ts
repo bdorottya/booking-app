@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AdminService } from './admin.service';
-import { FormControl, FormGroup } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup } from '@angular/forms';
 import { User } from '../user/user.model';
 import {AngularFirestore} from '@angular/fire/compat/firestore';
 import { environment } from 'src/environments/environment';
@@ -15,8 +15,8 @@ export class AdminBoardComponent implements OnInit {
 
   constructor(private adminService: AdminService, private af: AngularFirestore, private appService: AppService) { }
 
-  searchForm = new FormGroup({
-    search: new FormControl('')
+  searchForm = new UntypedFormGroup({
+    search: new UntypedFormControl('')
   })
 
   currentUser:User = new User();

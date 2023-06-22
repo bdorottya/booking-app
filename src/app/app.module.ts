@@ -42,7 +42,6 @@ import { ReactiveFormsModule } from '@angular/forms';
     MatProgressSpinnerModule,
     MatMenuModule,
     MatButtonModule,
-    FullCalendarModule,
     AngularFireModule.initializeApp(environment.firebase),
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideAuth(() => getAuth()),
@@ -56,5 +55,4 @@ import { AuthGuardService } from './guards/auth.guard';
 import { AngularFireModule } from '@angular/fire/compat';
 import { BookingsComponent } from './booking/bookings/bookings.component';
 import { BookingModule } from './booking/booking.module';
-import { FullCalendarModule } from '@fullcalendar/angular';
 

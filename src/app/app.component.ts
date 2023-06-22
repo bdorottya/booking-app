@@ -1,5 +1,5 @@
 import { AfterViewInit, Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup } from '@angular/forms';
 import { User } from './user/user.model';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { Router } from '@angular/router';
@@ -18,8 +18,8 @@ import { LoginComponent } from './admin-board/login/login.component';
 export class AppComponent implements OnInit {
   title = 'booking-client';
 
-  searchForm = new FormGroup({
-    search: new FormControl('')
+  searchForm = new UntypedFormGroup({
+    search: new UntypedFormControl('')
   })
 
   currentUser:User = new User();
