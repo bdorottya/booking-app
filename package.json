@@ -24,6 +24,10 @@
     "@fullcalendar/angular": "^6.1.8",
     "@fullcalendar/core": "^6.1.8",
     "@fullcalendar/daygrid": "^6.1.8",
+    "apexcharts": "^3.41.0",
+    "firebase-tools": "^12.4.7",
+    "moment": "^2.29.4",
+    "moment-range": "^4.0.2",
     "rxjs": "~7.5.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.11.4"

@@ -1,0 +1,24 @@
+.slide-container{
+  margin: 3% 0;
+  padding: 20px;
+  border-radius: 20px;
+  box-shadow: 0 0 10px 1px grey;
+  display: flex;
+  .slide{
+    width: 25%;
+    padding: 10px 15px;
+    border-radius: 20px;
+    box-shadow: 0 0 10px 1px grey;
+    .progress{
+      .dates{
+        margin-top: 3%;
+        font-size: 12px;
+        display: flex;
+        justify-content: space-between;
+        span{
+          text-align: center;
+        }
+      }
+    }
+  }
+}

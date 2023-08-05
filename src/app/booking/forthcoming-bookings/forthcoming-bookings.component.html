@@ -1,0 +1,28 @@
+<div class="controls">
+  <h2>Forthcoming Bookings</h2>
+  <button mat-button class="positive-btn-green" (click)="addBooking()"><mat-icon>add</mat-icon>Add new booking</button>
+</div>
+<div>
+  <div class="booking-table">
+    <div class="booking-header-row">
+      <div class="col">Room</div>
+      <div class="col">Booking Date</div>
+      <div class="col">Guest</div>
+      <div class="col">Check In</div>
+      <div class="col">Check Out</div>
+      <div class="col">Booking Status</div>
+    </div>
+    <div class="data-row" *ngFor="let book of allBooking | async" (click)="bookingDetails(book)"
+     [ngClass]="book.bookingStatus == 'Pending' ? 'pending-col' : '' ||
+    book.bookingStatus == 'Accepted' ? 'accepted-col' : '' ||
+    book.bookingStatus == 'Declined' ? 'declined-col' : '' ||
+    book.bookingStatus == 'Archived' ? 'archived-col' : ''">
+      <div class="col">{{book.roomNo}}</div>
+      <div class="col">{{dateConverter(book.bookingDate) | date: 'yyyy.MM.dd'}}</div>
+      <div class="col">{{book.guestName}}</div>
+      <div class="col">{{dateConverter(book.arrivalDate) | date: 'yyyy.MM.dd'}}</div>
+      <div class="col">{{dateConverter(book.departureDate) | date: 'yyyy.MM.dd'}}</div>
+      <div class="col"> {{book.bookingStatus}}</div>
+    </div>
+  </div>
+</div>

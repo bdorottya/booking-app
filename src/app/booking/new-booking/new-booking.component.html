@@ -1,0 +1,40 @@
+<div class="container">
+  <h2>Add Booking Details</h2>
+  <form [formGroup]="bookingForm" (ngSubmit)="submit()">
+    <mat-form-field appearance="outline">
+      <mat-label>Guest Name</mat-label>
+      <input type="text" matInput formControlName="guestName" required>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Guest Email</mat-label>
+      <input type="text" matInput formControlName="guestEmail" required>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Guest Phone</mat-label>
+      <input type="text" matInput formControlName="guestPhone">
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Number of Guests</mat-label>
+      <input type="text" matInput formControlName="numberOfGuests" required>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Enter a date range</mat-label>
+      <mat-date-range-input [rangePicker]="picker">
+        <input matStartDate formControlName="arrivalDate" required>
+        <input matEndDate formControlName="departureDate" required>
+      </mat-date-range-input>
+      <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-date-range-picker #picker></mat-date-range-picker>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Room</mat-label>
+      <mat-select formControlName="roomNo">
+        <mat-option *ngFor="let room of selectableRooms" [value]="room.roomNo">
+          {{room.roomNo}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <button mat-button class="positive-btn-green" type="submit">Submit Booking</button>
+    <button mat-button class="negative-btn" (click)="close()">Close</button>
+  </form>
+</div>

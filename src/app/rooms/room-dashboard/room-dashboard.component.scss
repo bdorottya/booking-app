@@ -1,0 +1,24 @@
+.tab-container{
+  margin: 5%;
+  .room-card-container{
+    padding: 2%;
+    display: flex;
+    flex-wrap: wrap;
+    .room-card{
+      margin: 1% 1.75%;
+      width: 40%;
+      box-shadow: 0 0 10px 1px grey;
+      border-radius: 20px;
+      padding: 10px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      div{
+        &:first-child{
+          display: flex;
+          justify-content: space-between;
+        }
+      }
+    }
+  }
+}

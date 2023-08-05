@@ -1,0 +1,81 @@
+<div class="container">
+<mat-stepper>
+  <mat-step>
+    <ng-template matStepLabel>Select Method</ng-template>
+    <div class="stepper-content">
+      <button mat-button (click)="openQRDialog()">Read Data From QR code</button>
+      <mat-divider [vertical]="true"></mat-divider>
+      <button mat-button matStepperNext>Manual Data Input</button>
+    </div>
+  </mat-step>
+  <mat-step>
+    <ng-template matStepLabel>Guest Data</ng-template>
+    <div class="stepper-container-2">
+      <form class="flex-form" [formGroup]="checkInForm">
+        <div class="col">
+          <mat-form-field>
+            <mat-label>Guest Name</mat-label>
+            <input type="text" matInput formControlName="guestName" required>
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label>Guest Email</mat-label>
+            <input type="text" matInput formControlName="guestEmail" required>
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label>Guest Phone</mat-label>
+            <input type="text" matInput formControlName="guestPhone" required>
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label>Guest City</mat-label>
+            <input type="text" matInput formControlName="guestCity" required>
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label>Guest ZIP</mat-label>
+            <input type="text" matInput formControlName="guestZip" required>
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label>Guest Street</mat-label>
+            <input type="text" matInput formControlName="guestStreet" required>
+          </mat-form-field>
+        </div>
+        <div class="col">
+            <mat-form-field>
+              <mat-label>Guest ID Card Type</mat-label>
+              <input type="text" matInput formControlName="guestIdCard" required>
+            </mat-form-field>
+            <mat-form-field>
+              <mat-label>Guest ID Number</mat-label>
+              <input type="text" matInput formControlName="guestIdNumber" required>
+            </mat-form-field>
+            <mat-form-field>
+              <mat-label>Number of Guests</mat-label>
+              <input type="text" matInput formControlName="numberOfGuests" required>
+            </mat-form-field>
+            <mat-form-field>
+              <mat-label>Room Number</mat-label>
+              <input type="text" matInput formControlName="roomNo" required>
+            </mat-form-field>
+            <mat-form-field>
+              <mat-label>Arrival Date</mat-label>
+              <input type="text" matInput formControlName="arrivalDate" required>
+            </mat-form-field>
+            <mat-form-field>
+              <mat-label>Departure Date</mat-label>
+              <input type="text" matInput formControlName="departureDate" required>
+            </mat-form-field>
+        </div>
+        <button mat-button matStepperNext>Next</button>
+      </form>
+    </div>
+  </mat-step>
+  <mat-step>
+    <ng-template matStepLabel>Confirm</ng-template>
+    <div class="stepper-content card">
+      <h3>Confirm that your data is valid!</h3>
+    </div>
+  </mat-step>
+  <mat-step>
+    <ng-template matStepLabel>Done</ng-template>
+  </mat-step>
+</mat-stepper>
+</div>

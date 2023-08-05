@@ -1,31 +1,109 @@
 import { Injectable } from '@angular/core';
-import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/compat/firestore';
+import { Router } from '@angular/router';
+import { Booking } from './booking.model';
+import { Firestore, Timestamp, collection, collectionData } from '@angular/fire/firestore';
+import { BehaviorSubject, Observable, Subject, filter, map } from 'rxjs';
+import { MatSnackBar } from '@angular/material/snack-bar';
+
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class BookingService {
 
-  constructor(private af: AngularFirestore) { }
+  constructor(private af: AngularFirestore, private db: Firestore, private router: Router, private snackBar: MatSnackBar) {
+    this.af.collection('bookings').stateChanges().subscribe(obs =>{
+      console.log(obs);
+      if(obs.length == 1 && obs[0].type == 'added'){
+        this.snackBar.open('New Booking!', 'View', {panelClass: 'new-booking', verticalPosition: 'top',
+          duration: 4000});
+      }
+    })
 
-  async getBookings(){
-    const db = this.af.collection('bookings');
-    return await db.ref.get();
+  }
+
+  bookingSnapshot = this.af.collection('bookings').stateChanges();
+  allBooking$: Subject<Booking[]> = new Subject<Booking[]>();
+  bookingRef: AngularFirestoreCollection = this.af.collection('booking');
+
+  getBookings(): Observable<Booking[]>{
+    const ref = collection(this.db, 'bookings');
+    const data = collectionData(ref, {
+      idField: 'id',
+    })
+    return data as Observable<Booking[]>;
+    /*const col = this.af.collection('bookings');
+    let bookingArray: Booking[] = [];
+    let q = collectionData()
+    col.ref.get().then(doc =>{
+      doc.forEach(data =>{
+        let booking = data.data() as Booking;
+        booking.id = data.id;
+        booking.arrivalDate = (booking.arrivalDate as unknown as Timestamp).toDate();
+        booking.departureDate = (booking.departureDate as unknown as Timestamp).toDate();
+        booking.bookingDate = (booking.bookingDate as unknown as Timestamp).toDate();
+        bookingArray.push(booking);
+      });
+      this.allBooking$.next(bookingArray);
+    })*/
   }
 
 
-  async getPendingBookings(){
+
+ async newBooking(booking:Booking){
     const db = this.af.collection('bookings');
-    return await db.ref.where('bookingStatus', '==', 'Pending').get()
+    db.doc().set(booking).then(() =>{
+      console.log('new booking added', booking);
+      this.allBooking$.next([booking]);
+      this.refreshData();
+    });
   }
 
-  async getActiveBookings(){
+  refreshData(){
+    this.getBookings();
+  }
+  /*getbookedRanges(){
+    let booked: DateRange<Date>[] = [];
+    this.getBookings();
+
+    .then(data => {
+      data.forEach(doc => {
+        let booking = doc.data() as Booking;
+        if(booking.bookingStatus == 'Accepted'){
+          let range: DateRange<Date> = new DateRange((booking.arrivalDate as unknown as Timestamp).toDate(), (booking.departureDate as unknown as Timestamp).toDate());
+          booked.push(range);
+        }
+      })
+    })
+    return booked;
+  }*/
+
+
+  async updateBooking(bookingId:string, bookingData:Booking){
     const db = this.af.collection('bookings');
-    return await db.ref.where('bookingStatus', '==', 'Accepted').get()
+    return db.doc(bookingId).ref.update(Object.assign({}, bookingData));
   }
 
   async changeBookingStatus(bookingId:string, newStatus:string){
     const doc = this.af.collection('bookings').doc(bookingId);
     return doc.ref.update({'bookingStatus': newStatus});
   }
+
+
+  /*convertBookingDatesToRanges(roomNo:string){
+    let bookedRanges: DateRange<Date>[] = [];
+    this.getBookings().then(data => {
+      data.forEach(doc => {
+        let newBooking = doc.data() as Booking;
+        if(newBooking.roomNo == roomNo){
+          let range: DateRange<Date> = new DateRange((newBooking.arrivalDate as unknown as Timestamp).toDate(),
+          (newBooking.departureDate as unknown as Timestamp).toDate());
+          bookedRanges.push(range);
+        }
+      })
+    })
+    return bookedRanges;
+  }*/
 }

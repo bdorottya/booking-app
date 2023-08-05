@@ -1,0 +1,62 @@
+.container{
+  padding: 2% 3%;
+  .status, .actions, .data{
+    display: flex;
+    margin-top: 3%;
+  }
+  .status{
+    justify-content: flex-end;
+    font-size: 16px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-weight: 800;
+    margin-right: 5%;
+    .pending{
+      color: salmon;
+    }
+    .accepted{
+      color: seagreen
+    }
+    .declined{
+      color: sandybrown;
+    }
+    .archived{
+      color: slategray;
+    }
+  }
+  .data{
+    justify-content: space-between;
+    padding: 0 2%;
+    h3{
+      font-size: 20px;
+      font-weight: 600;
+      color: #222;
+    }
+    .guest-data, .room-data, .booking-data{
+      padding: 0 2%;
+      p{
+        display: flex;
+        flex-direction: column;
+        span{
+          &:first-child{
+            text-transform: uppercase;
+            font-size: 12px;
+            color: grey;
+            font-weight: 500;
+          }
+          &:last-child{
+            padding-bottom: 5%;
+            font-size: 18px;
+            color: #333;
+          }
+        }
+      }
+    }
+  }
+  .actions{
+    justify-content: center;
+    button{
+      margin: 0 5%;
+    }
+  }
+}

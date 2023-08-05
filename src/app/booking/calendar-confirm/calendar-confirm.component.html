@@ -1,0 +1,38 @@
+<div class="information-container">
+  <h4>Fill in Your data!</h4>
+  <form [formGroup]="bookingForm" (ngSubmit)="startBooking()">
+    <mat-form-field appearance="outline">
+      <mat-label>Full name</mat-label>
+      <input type="text" formControlName="guestName" matInput required>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>E-mail</mat-label>
+      <input type="email" formControlName="guestEmail" matInput required>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Phone</mat-label>
+      <input type="phone" formControlName="guestPhone" matInput>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Number of Guests</mat-label>
+      <input type="number" formControlName="numberOfGuests" matInput required>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Room number</mat-label>
+      <mat-select formControlName="roomNo">
+        <mat-option *ngFor="let room of selectableRooms" [value]="room.roomNo">
+          {{room.roomNo}} - {{room.roomType}} - {{room.beds}} bed(s)
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Arrival Date</mat-label>
+      <input type="text" formControlName="arrivalDate" matInput required>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Departure Date</mat-label>
+      <input type="text" formControlName="departureDate" matInput required>
+    </mat-form-field>
+    <button mat-button type="submit" [disabled]="bookingForm.invalid">Send Booking</button>
+  </form>
+</div>

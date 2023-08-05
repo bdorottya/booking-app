@@ -1,1 +1,31 @@
-
+<div *ngIf="isLoading">
+  <mat-spinner></mat-spinner>
+</div>
+<div class="calendar-container" *ngIf="!isLoading">
+  <div class="controls">
+    <button mat-button (click)="prevMonth()">Prev</button>
+    <p>{{date | date: 'MMMM'}}</p>
+    <button mat-button (click)="nextMonth()">Next</button>
+  </div>
+  <div class="title-row">
+    <div class="cube">Monday</div>
+    <div class="cube">Tuesday</div>
+    <div class="cube">Wednesday</div>
+    <div class="cube">Thursday</div>
+    <div class="cube">Friday</div>
+    <div class="cube">Saturday</div>
+    <div class="cube">Sunday</div>
+  </div>
+  <div class='row' *ngFor="let week of weeksToShow">
+    <div *ngFor="let day of week" class="cube" >
+      <div (click)="mode == 'Booking' ? selectedChange(day) : ''" class="inner-cube" [ngClass]="{'in-month': day.getMonth() == date.getMonth(),
+                                          'selected': isSelected(day),
+                                          'booked': isBooked(day)}">
+        <p>{{day | date: 'd'}}</p>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="actions">
+  <button mat-button [disabled]="isDisabled" (click)="continueToBooking()">Select Dates</button>
+</div>

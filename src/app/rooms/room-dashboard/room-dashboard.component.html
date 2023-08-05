@@ -1,0 +1,29 @@
+<div class="tab-container">
+  <mat-tab-group>
+    <mat-tab label="First floor">
+      <div class="room-card-container">
+        <div class="room-card" *ngFor="let room of allRooms">
+          <div>
+            <h3>{{room.roomNo}}</h3>
+            <h3>{{room.occupied ? 'Occupied' : 'Not Occupied'}}</h3>
+          </div>
+          <div class="img-gallery"></div>
+          <div>
+            <h4>{{room.dirty ? 'Needs Cleaning' : 'Clean'}}</h4>
+            <div *ngIf="room.occupied">
+              <h4>Occupation ends</h4>
+              <h5>{{room.occupiedUntil | date: 'yyyy.MM.dd'}}</h5>
+            </div>
+          </div>
+          <div class="actions">
+            <button mat-button>Details</button>
+          </div>
+        </div>
+      </div>
+    </mat-tab>
+    <mat-tab label="Second floor"></mat-tab>
+  </mat-tab-group>
+</div>
+
+<app-calendar [mode]="'View'" [bookedRangeValues]="bookedRanges"></app-calendar>
+

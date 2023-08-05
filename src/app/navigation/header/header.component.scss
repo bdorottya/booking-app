@@ -1,0 +1,34 @@
+header{
+  padding: 1% 2%;
+ display: flex;
+ max-width: 100%;
+ justify-content: space-between;
+ box-shadow: 0 0 10px grey;
+ .logo{
+  img{
+    max-width: 100px;
+    padding: 2%;
+  }
+ }
+ .mat-menu{
+  display: flex;
+  flex-direction: column;
+ }
+ .search-input{
+  min-width: 300px;
+ }
+ .user-data{
+  width: 11%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  p{
+    padding-top: 15px;
+  }
+}
+}
+.page-container{
+  width: 100%;
+  justify-content: flex-start;
+  display: flex;
+}

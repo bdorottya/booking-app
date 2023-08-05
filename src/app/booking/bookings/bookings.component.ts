@@ -1,79 +1,100 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { AppService } from 'src/app/app.service';
 import { BookingService } from '../booking.service';
-import { Observable, ReplaySubject } from 'rxjs';
-import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
+import { Observable, map} from 'rxjs';
+import { MatDialog } from '@angular/material/dialog';
 import { BookingDetailComponent } from '../booking-detail/booking-detail.component';
+import { Booking } from '../booking.model';
+import { DatePipe } from '@angular/common';
+import { Firestore, Timestamp } from '@angular/fire/firestore';
+import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { NewBookingComponent } from '../new-booking/new-booking.component';
+import { RoomsService } from 'src/app/rooms/rooms.service';
+import { Room } from 'src/app/rooms/room.model';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-bookings',
   templateUrl: './bookings.component.html',
   styleUrls: ['./bookings.component.scss']
 })
-export class BookingsComponent implements OnInit {
+export class BookingsComponent implements OnInit, OnDestroy {
 
   constructor(private appService: AppService, private bookingService: BookingService,
-    private dialog: MatDialog) { }
+    private datePipe: DatePipe, private roomService: RoomsService, private snackBar: MatSnackBar) {
+    }
+  ngOnDestroy(): void {
+    //this.bookingService.allBooking$.unsubscribe();
+    //this.roomService.room$.unsubscribe();
+  }
 
-  isLoading:boolean = false;
 
-  pendingBookings:ReplaySubject<{id:any, data:any}> = new ReplaySubject();
-  acceptedBookings:ReplaySubject<{id:any, data:any}> = new ReplaySubject();
+  allBooking$!: Observable<Booking[]>;
+  activeBookings: Booking[] = [];
+  rooms: Room[] = [];
 
-  pendings: any[] = [];
-  accepted: any[] = [];
 
-  allBooking: any[] = [];
+
 
   ngOnInit(): void {
+    this.appService.activeRoute.next('/bookings');
+    this.allBooking$ = this.bookingService.getBookings();
+    this.roomService.room$.subscribe(data =>{
+      this.rooms = [...this.rooms, data];
+
+    })
+    /*console.log(this.allBooking);
     this.appService.activeRoute.next('bookings');
-    this.isLoading = true;
+    //this.getAllBookings();
+    this.bookingService.getBookings().pipe(map(bookings =>{
+      bookings.forEach(doc =>{
+        let booking = doc as Booking;
+        booking.arrivalDate = (booking.arrivalDate as unknown as Timestamp).toDate();
+        booking.departureDate = (booking.departureDate as unknown as Timestamp).toDate();
+        booking.bookingDate = (booking.bookingDate as unknown as Timestamp).toDate();
+        this.allBooking = [...this.allBooking, booking];
+      })
+    })).subscribe(() =>{
+      console.log('collection changed');
+    })*/
+
+
+  }
+
+  /*getAllBookings(){
     this.bookingService.getBookings().then(data => {
       data.forEach(doc => {
-        this.allBooking.push(doc.data());
+        let newBooking:Booking = new Booking();
+        newBooking = doc.data() as Booking;
+        newBooking.id = doc.id;
+        newBooking.arrivalDate = (newBooking.arrivalDate as unknown as Timestamp).toDate();
+        newBooking.departureDate = (newBooking.departureDate as unknown as Timestamp).toDate();
+        newBooking.bookingDate = (newBooking.bookingDate as unknown as Timestamp).toDate();
+        this.allBooking.push(newBooking);
       })
-    })
-    this.pendingBookings.subscribe(obs => {
-      this.pendings.push(obs);
-    })
-    this.acceptedBookings.subscribe(obs => {
-      console.log('new value');
-      this.accepted.push(obs);
-    })
-    this.bookingService.getPendingBookings().then(data => {
-      data.forEach(doc => {
-        this.pendingBookings.next({ 'id': doc.id, 'data': doc.data() });
-      })
-    })
-    this.bookingService.getActiveBookings().then(data => {
-      data.forEach(doc => {
-        this.acceptedBookings.next({'id': doc.id, 'data': doc.data()});
-      })
-      this.isLoading = false;
+    }).then(d => {
+      this.getActiveBookings();
     })
   }
 
-  acceptBooking(bookingId:string){
-    this.isLoading = true;
-    console.log(bookingId);
-    this.bookingService.changeBookingStatus(bookingId, 'Accepted').then(data => {
-      this.pendings.forEach(booking => {
-        if(booking.id == bookingId){
-          this.acceptedBookings.next(booking);
-        }
-      })
-      let removable = this.pendings.findIndex(element => element.id === bookingId);
-      console.log(removable);
-      if(removable > -1){
-        this.pendings.splice(removable,1);
+  getActiveBookings(){
+    let currentDate = new Date();
+    this.allBooking.forEach(booking => {
+      if(booking.arrivalDate <= currentDate && booking.departureDate >= currentDate){
+        this.activeBookings.push(booking);
       }
-      console.log(this.pendings);
-      this.isLoading = false;
     })
   }
 
-  bookingDetails(booking:any){
-    this.dialog.open(BookingDetailComponent);
+  remainingDay(booking:Booking){
+    const currentDate = new Date();
+    let bookingLength = booking.departureDate.getTime() - booking.arrivalDate.getTime();
+    let remainigDays = (booking.departureDate.getTime() - currentDate.getTime());
+    return 100 - ((100*remainigDays) / bookingLength);
   }
+
+
+
+  */
 
 }

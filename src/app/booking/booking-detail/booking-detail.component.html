@@ -1,1 +1,131 @@
-<p>booking-detail works!</p>
+<div class="container">
+  <mat-dialog-content>
+  <form [formGroup]="editBookingForm" (ngSubmit)="saveForm()">
+  <div class="status" >
+    <p [ngClass]="booking.bookingStatus == 'Pending' ? 'pending' : '' ||
+    booking.bookingStatus == 'Accepted' ? 'accepted' : '' ||
+    booking.bookingStatus == 'Declined' ? 'declined' : '' ||
+    booking.bookingStatus == 'Archived' ? 'archived' : ''">{{booking.bookingStatus}}</p>
+  </div>
+  <div class="data">
+    <div class="guest-data">
+      <h3>Guest Data</h3>
+      <p>
+        <span class="title">Guest Name</span>
+        <span class="text" *ngIf="mode != 'edit'">{{booking.guestName}}</span>
+        <mat-form-field appearance="outline" *ngIf="mode == 'edit'">
+          <input type="text" matInput formControlName="guestName">
+        </mat-form-field>
+      </p>
+      <p>
+        <span class="title">Guest Email</span>
+        <span class="text" *ngIf="mode != 'edit'">{{booking.guestEmail}}</span>
+        <mat-form-field appearance="outline" *ngIf="mode == 'edit'">
+          <input type="text" matInput formControlName="guestEmail">
+        </mat-form-field>
+      </p>
+      <p>
+        <span class="title">Guest Phone</span>
+        <span class="text" *ngIf="mode != 'edit'">{{booking.guestPhone}}</span>
+        <mat-form-field appearance="outline" *ngIf="mode == 'edit'">
+          <input type="text" matInput formControlName="guestPhone">
+        </mat-form-field>
+      </p>
+      <p>
+        <span class="title">Guest City</span>
+        <span class="text" *ngIf="mode != 'edit'">{{booking.address ? booking.address.city : ''}}</span>
+        <mat-form-field appearance="outline" *ngIf="mode == 'edit'">
+          <input type="text" matInput formControlName="guestCity">
+        </mat-form-field>
+      </p>
+      <p>
+        <span class="title">Guest Zip</span>
+        <span class="text" *ngIf="mode != 'edit'">{{booking.address ? booking.address.zip : ''}}</span>
+        <mat-form-field appearance="outline" *ngIf="mode == 'edit'">
+          <input type="text" matInput formControlName="guestZip">
+        </mat-form-field>
+      </p>
+      <p>
+        <span class="title">Guest Street</span>
+        <span class="text" *ngIf="mode != 'edit'">{{booking.address ? booking.address.street : ''}}</span>
+        <mat-form-field appearance="outline" *ngIf="mode == 'edit'">
+          <input type="text" matInput formControlName="guestStreet">
+        </mat-form-field>
+      </p>
+      <p>
+        <span class="title">Guest ID Card Type</span>
+        <span class="text" *ngIf="mode != 'edit'">{{booking.personalInfo ? booking.personalInfo.idCardType : ''}}</span>
+        <mat-form-field appearance="outline" *ngIf="mode == 'edit'">
+          <input type="text" matInput formControlName="guestIdCard">
+        </mat-form-field>
+      </p>
+      <p>
+        <span class="title">Guest ID Card Number</span>
+        <span class="text" *ngIf="mode != 'edit'">{{booking.personalInfo ? booking.personalInfo.idCardNo : ''}}</span>
+        <mat-form-field appearance="outline" *ngIf="mode == 'edit'">
+          <input type="text" matInput formControlName="guestIdNumber">
+        </mat-form-field>
+      </p>
+    </div>
+    <div class="room-data">
+      <h3>Room Data</h3>
+      <p>
+        <span class="title">Room Number</span>
+        <span class="text" *ngIf="mode != 'edit'">{{room.roomNo}}</span>
+        <mat-form-field appearance="outline" *ngIf="mode == 'edit'">
+          <mat-select formControlName="roomNo" (selectionChange)="changeRoomDetails($event)">
+            <mat-option *ngFor="let room of allRooms" [value]="room.roomNo">
+              {{room.roomNo}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </p>
+      <p>
+        <span class="title">Room Type</span>
+        <span class="text">{{room.roomType}}</span>
+      </p>
+      <p>
+        <span class="title">Number of Beds</span>
+        <span class="text">{{room.beds}}</span>
+      </p>
+    </div>
+    <div class="booking-data">
+      <h3>Booking Data</h3>
+      <p>
+        <span class="title">Booking Date</span>
+        <span class="text">{{dateConverter(booking.bookingDate) | date: 'yyyy.MM.dd'}}</span>
+      </p>
+      <p>
+        <span class="title">Check In</span>
+        <span class="text" *ngIf="mode != 'edit'">{{dateConverter(booking.arrivalDate) | date: 'yyyy.MM.dd'}}</span>
+        <mat-form-field appearance="outline" *ngIf="mode == 'edit'">
+          <input type="text" matInput formControlName="arrivalDate">
+        </mat-form-field>
+      </p>
+      <p>
+        <span class="title">Check Out</span>
+        <span class="text" *ngIf="mode != 'edit'">{{dateConverter(booking.departureDate) | date: 'yyyy.MM.dd'}}</span>
+        <mat-form-field appearance="outline" *ngIf="mode == 'edit'">
+          <input type="text" matInput formControlName="departureDate">
+        </mat-form-field>
+      </p>
+      <p>
+        <span class="title">Number of Guests</span>
+        <span class="text" *ngIf="mode != 'edit'">{{booking.numberOfGuests}}</span>
+        <mat-form-field appearance="outline" *ngIf="mode == 'edit'">
+          <input type="text" matInput formControlName="numberOfGuests">
+        </mat-form-field>
+      </p>
+    </div>
+  </div>
+  <div class="actions">
+    <button mat-button class='positive-btn-salmon' (click)="acceptBooking()" *ngIf="booking.bookingStatus == 'Pending' && mode != 'edit'">Accept Booking</button>
+    <button mat-button class='positive-btn-green' (click)="checkIn()" type="button" *ngIf="booking.bookingStatus == 'Accepted' && mode != 'edit'">Check In Guest</button>
+    <button mat-button class='positive-btn-salmon' (click)="edit()" *ngIf="mode != 'edit'">Edit Booking</button>
+    <button mat-button class="positive-btn-green" type="submit" *ngIf="mode == 'edit'">Save Booking</button>
+    <button mat-button class="negative-btn" *ngIf="mode != 'edit'" (click)="close()">Close</button>
+    <button mat-button class="negative-btn" *ngIf="mode == 'edit'" (click)="back()">Back</button>
+  </div>
+</form>
+</mat-dialog-content>
+</div>

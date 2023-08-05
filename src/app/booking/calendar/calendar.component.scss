@@ -1,32 +1,82 @@
-.container{
-  margin: 2%;
+*{
+  padding: 0;
+  margin: 0;
+}
+.calendar-container{
+  margin-top: 5%;
   max-width: 100%;
+  max-height: 100%;
+  border-radius: 20px;
+  box-shadow: 0 0 10px 1px grey;
+  padding: 0.5%;
   .controls{
     display: flex;
-    justify-content: space-evenly;
+    justify-content: space-between;
+    padding: 2%;
   }
-  .month-container{
+  .title-row, .row{
     display: flex;
-    margin-top: 3%;
-    .first-month, .second-month{
-      width: 50%;
-      margin: 0 1%;
-      box-shadow: 0 0 15px grey;
-      border-radius: 15px;
-      padding: 2% 1%;
-    }
-    .row{
-      display: flex;
-      justify-content: space-evenly;
-      .col{
-        width: 15%;
-        text-align: center;
+    justify-content: center;
+    .cube{
+      width: 12%;
+      height: 80px;
+      text-align: left;
+      background: rgba(126, 126, 126, 0.5);
+      margin: 0.05%;
+      border-radius: 5px;
+      .inner-cube{
+        margin: 0;
+        width:100%;
+        height:100%;
+        cursor: pointer;
+        p{
+          padding: 5%;
+        }
       }
     }
   }
+  .title-row .cube{
+    height: 50px;
+    text-align: center;
+    padding-top: 0.5%;
+    background: rgb(233,233,233);
+  }
+}
+.actions{
+  display: flex;
+  justify-content: flex-end;
+  padding: 10px 20px;
+  button:disabled{
+    background-color: silver;
+  }
+  button{
+    background-color: seagreen;
+    color: white;
+    padding: 10px 15px;
+  }
+}
+
+.in-month{
+  background: rgb(233, 233, 233);
+}
+.booked{
+  background: rgba(220, 20, 60, 0.329);
+}
+.pending{
+  background: rgba(218, 165, 32, 0.527);
+}
+
+.today{
+  color: dodgerblue;
+  font-weight: 600;
+  color: rgba(30, 143, 255, 0.295);
 }
 
 .selected{
-  background: lightgreen;
-  max-width: 100%;
+  background-color: seagreen;
+  color: white;
+  &:hover{
+    background: rgba(46, 139, 86, 0.747);
+  }
 }
+
