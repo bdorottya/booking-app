@@ -1,8 +1,5 @@
 .slide-container{
   margin: 3% 0;
-  padding: 20px;
-  border-radius: 20px;
-  box-shadow: 0 0 10px 1px grey;
   display: flex;
   .slide{
     width: 25%;
@@ -20,5 +17,16 @@
         }
       }
     }
+    .services{
+      display: flex;
+      justify-content: space-between;
+
+    }
   }
+}
+
+button:disabled{
+  color: silver;
+  background-color: rgba(220, 20, 60, 0.055);
+  cursor:none;
 }

@@ -9,6 +9,7 @@ import { MatSelectChange } from '@angular/material/select';
 import { BookingService } from '../booking.service';
 import { Router } from '@angular/router';
 import { Timestamp } from '@angular/fire/firestore';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-booking-detail',
@@ -19,14 +20,16 @@ export class BookingDetailComponent implements OnInit {
 
   constructor(private roomService: RoomsService, private matDialogRef: MatDialogRef<BookingDetailComponent>,
     private bookingService: BookingService, private router: Router, @Inject(MAT_DIALOG_DATA)
-    public data: {rooms: Room[]}) {
+    public data: {rooms: Room[], active: boolean}, private datePipe: DatePipe) {
       this.allRooms = this.data.rooms;
+      this.isActive = this.data.active;
      }
 
   booking:Booking = new Booking();
   room:Room = new Room;
 
   allRooms:Room[];
+  isActive:boolean;
 
   mode:string = '';
 
@@ -82,8 +85,8 @@ export class BookingDetailComponent implements OnInit {
     this.editBookingForm.get('guestIdCard')?.setValue(this.booking.personalInfo?.idCardType);
     this.editBookingForm.get('guestIdNumber')?.setValue(this.booking.personalInfo?.idCardNo);
     this.editBookingForm.get('numberOfGuests')?.setValue(this.booking.numberOfGuests);
-    this.editBookingForm.get('arrivalDate')?.setValue(this.booking.arrivalDate.toDateString());
-    this.editBookingForm.get('departureDate')?.setValue(this.booking.departureDate.toDateString());
+    this.editBookingForm.get('arrivalDate')?.setValue((this.booking.arrivalDate as unknown as Timestamp).toDate());
+    this.editBookingForm.get('departureDate')?.setValue((this.booking.departureDate as unknown as Timestamp).toDate());
     this.editBookingForm.get('roomNo')?.setValue(this.booking.roomNo);
   }
 

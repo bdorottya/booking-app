@@ -50,8 +50,6 @@ export class BookingService {
     })*/
   }
 
-
-
  async newBooking(booking:Booking){
     const db = this.af.collection('bookings');
     db.doc().set(booking).then(() =>{

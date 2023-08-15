@@ -39,9 +39,9 @@ export class BookingsComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.appService.activeRoute.next('/bookings');
     this.allBooking$ = this.bookingService.getBookings();
+    this.getActiveBookings();
     this.roomService.room$.subscribe(data =>{
       this.rooms = [...this.rooms, data];
-
     })
     /*console.log(this.allBooking);
     this.appService.activeRoute.next('bookings');
@@ -75,15 +75,19 @@ export class BookingsComponent implements OnInit, OnDestroy {
     }).then(d => {
       this.getActiveBookings();
     })
-  }
+  }*/
 
   getActiveBookings(){
     let currentDate = new Date();
-    this.allBooking.forEach(booking => {
+    this.allBooking$.pipe(map(array =>{
+      this.activeBookings = array.filter(booking => booking.arrivalDate > currentDate && booking.departureDate < currentDate);
+      console.log(this.activeBookings);
+    }));
+    /*this.allBooking.forEach(booking => {
       if(booking.arrivalDate <= currentDate && booking.departureDate >= currentDate){
         this.activeBookings.push(booking);
       }
-    })
+    })*/
   }
 
   remainingDay(booking:Booking){
@@ -92,9 +96,5 @@ export class BookingsComponent implements OnInit, OnDestroy {
     let remainigDays = (booking.departureDate.getTime() - currentDate.getTime());
     return 100 - ((100*remainigDays) / bookingLength);
   }
-
-
-
-  */
 
 }

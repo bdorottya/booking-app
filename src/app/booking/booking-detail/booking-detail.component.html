@@ -119,8 +119,8 @@
     </div>
   </div>
   <div class="actions">
-    <button mat-button class='positive-btn-salmon' (click)="acceptBooking()" *ngIf="booking.bookingStatus == 'Pending' && mode != 'edit'">Accept Booking</button>
-    <button mat-button class='positive-btn-green' (click)="checkIn()" type="button" *ngIf="booking.bookingStatus == 'Accepted' && mode != 'edit'">Check In Guest</button>
+    <button mat-button class='positive-btn-green' (click)="acceptBooking()" *ngIf="booking.bookingStatus == 'Pending' && mode != 'edit'">Accept Booking</button>
+    <button mat-button class='positive-btn-green' (click)="checkIn()" type="button" *ngIf="booking.bookingStatus == 'Accepted' && mode != 'edit' && isActive != true">Check In Guest</button>
     <button mat-button class='positive-btn-salmon' (click)="edit()" *ngIf="mode != 'edit'">Edit Booking</button>
     <button mat-button class="positive-btn-green" type="submit" *ngIf="mode == 'edit'">Save Booking</button>
     <button mat-button class="negative-btn" *ngIf="mode != 'edit'" (click)="close()">Close</button>

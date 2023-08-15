@@ -1,8 +1,11 @@
 <section class="component-container">
   <div class="current-guests">
-    <app-active-bookings></app-active-bookings>
+    <app-active-bookings [bookings$]="allBooking$" [rooms]="rooms"></app-active-bookings>
   </div>
   <div class="forthcoming">
     <app-forthcoming-bookings [allBooking]="allBooking$" [rooms]="rooms"></app-forthcoming-bookings>
+  </div>
+  <div class="archived">
+    <app-archived-bookings [allBooking]="allBooking$" [rooms]="rooms"></app-archived-bookings>
   </div>
 </section>

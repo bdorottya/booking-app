@@ -5,7 +5,7 @@ import { NewBookingComponent } from '../new-booking/new-booking.component';
 import { RoomsService } from 'src/app/rooms/rooms.service';
 import { Room } from 'src/app/rooms/room.model';
 import { BookingDetailComponent } from '../booking-detail/booking-detail.component';
-import { Subject } from 'rxjs';
+import { Observable, Subject, map } from 'rxjs';
 import { Timestamp } from '@angular/fire/firestore';
 
 @Component({
@@ -17,13 +17,26 @@ export class ForthcomingBookingsComponent implements OnInit {
 
   constructor(private dialog: MatDialog, private roomService: RoomsService){}
 
-  @Input() allBooking:any;
+  @Input() allBooking!:Observable<Booking[]>;
+  forthcomingBooking$!:Observable<Booking[]>;
 
   @Input() rooms: Room[] = [];
 
+  length!:number;
+
 
   ngOnInit(): void {
+    this.allBooking.subscribe(obs => {
+      this.forthcomingBooking$ = this.mapForthBooking();
+      this.forthcomingBooking$.subscribe(data => this.length = data.length);
+    })
 
+  }
+
+  mapForthBooking(){
+    return this.allBooking.pipe(
+        map((bookings:Booking[]) => bookings.filter(booking =>
+          booking.bookingStatus != 'Archived')))
   }
 
 
@@ -35,7 +48,6 @@ export class ForthcomingBookingsComponent implements OnInit {
     dialog.componentInstance.booking = booking;
     dialog.afterClosed().subscribe(data => {
       if(data === 'Status Changed'){
-
       }
     })
   }
@@ -48,9 +60,7 @@ export class ForthcomingBookingsComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(data => {
-      if(data){
-        this.allBooking.next(data);
-      }
+
     });
   }
 

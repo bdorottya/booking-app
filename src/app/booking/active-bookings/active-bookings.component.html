@@ -1,11 +1,11 @@
-<h2>Current Active Bookings</h2>
+<h2>Current Active Bookings ({{length}})</h2>
 <div class="slide-container">
-  <div class="slide" *ngFor="let active of activeBookings">
+  <div class="slide" *ngFor="let active of activeBookings$ | async">
     <div class="progress">
-      <mat-progress-bar [value]=""></mat-progress-bar>
+      <mat-progress-bar [value]="progress(active.arrivalDate, active.departureDate)"></mat-progress-bar>
       <div class="dates">
-        <span>{{active.arrivalDate | date: 'yyyy.MM.dd'}}</span>
-        <span>{{active.departureDate | date: 'yyyy.MM.dd'}}</span>
+        <span>{{dateConverter(active.arrivalDate) | date: 'yyyy.MM.dd'}}</span>
+        <span>{{dateConverter(active.departureDate) | date: 'yyyy.MM.dd'}}</span>
       </div>
     </div>
     <div class="data">
@@ -13,7 +13,8 @@
       <p>{{active.roomNo}}</p>
     </div>
     <div class="services">
-      <button mat-button class="positive-btn-salmon" (click)="bookingDetails(active)">Details</button>
+      <button mat-button class="positive-btn-salmon" (click)="bookingDetails(active, true)">Details</button>
+      <button mat-button class="negative-btn" disabled (click)="archiveBooking(active)">Archive</button>
     </div>
   </div>
 </div>

@@ -28,13 +28,11 @@ export class RoomDashboardComponent implements OnInit{
   bookedRanges:DateRange<Date>[] = [];
 
   ngOnInit(): void {
-    /*this.appService.activeRoute.next('rooms');
-    this.roomService.getRooms().then(() => {
-      this.allRooms = this.roomService.roomArray;
-      //this.compareRoomsWithBookings();
-    });
-    //this.bookedRanges = this.bookingService.getbookedRanges();
-    console.log(this.bookedRanges);*/
+    this.appService.activeRoute.next('rooms');
+    this.roomService.room$.subscribe(obs =>{
+      this.allRooms.push(obs);
+    })
+
   }
 
   /*compareRoomsWithBookings(){

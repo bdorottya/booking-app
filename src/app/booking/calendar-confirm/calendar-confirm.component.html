@@ -34,5 +34,6 @@
       <input type="text" formControlName="departureDate" matInput required>
     </mat-form-field>
     <button mat-button type="submit" [disabled]="bookingForm.invalid">Send Booking</button>
+    <button mat-button (click)="goBack()" type="button">Back</button>
   </form>
 </div>

@@ -22,6 +22,8 @@ import {MatDividerModule} from '@angular/material/divider';
 import { ForthcomingBookingsComponent } from './forthcoming-bookings/forthcoming-bookings.component';
 import { ActiveBookingsComponent } from './active-bookings/active-bookings.component';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
+import { WeeklyViewComponent } from './weekly-view/weekly-view.component';
+import { ArchivedBookingsComponent } from './archived-bookings/archived-bookings.component';
 
 
 
@@ -34,7 +36,9 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
     NewBookingComponent,
     CheckInComponent,
     ForthcomingBookingsComponent,
-    ActiveBookingsComponent
+    ActiveBookingsComponent,
+    WeeklyViewComponent,
+    ArchivedBookingsComponent
   ],
   imports: [
     CommonModule,
@@ -55,6 +59,6 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
     MatSnackBarModule
   ],
   providers: [DatePipe],
-  exports: [CalendarComponent]
+  exports: [CalendarComponent, WeeklyViewComponent]
 })
 export class BookingModule { }

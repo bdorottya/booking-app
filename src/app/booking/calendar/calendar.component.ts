@@ -182,7 +182,7 @@ export class CalendarComponent implements OnInit {
         const start = this.selectedRangeValue.start;
         const end = m;
         if (end < start) {
-            this.selectedRangeValue = new DateRange<Date>(end, start);
+            this.selectedRangeValue = new DateRange<Date>(start, null);
         } else {
             this.selectedRangeValue = new DateRange<Date>(start, end);
         }
@@ -213,8 +213,10 @@ continueToBooking(){
     }
   });
   dialogRef.afterClosed().subscribe(mesg =>{
-    this.selectedRangeValue = new DateRange<Date>(new Date(), new Date())
-    this.snackBar.open(mesg,'OK', {horizontalPosition: 'center', verticalPosition: 'top'});
+    if(mesg){
+      this.selectedRangeValue = new DateRange<Date>(new Date(), new Date())
+      this.snackBar.open(mesg,'OK', {horizontalPosition: 'center', verticalPosition: 'top'});
+    }
   })
 
 }

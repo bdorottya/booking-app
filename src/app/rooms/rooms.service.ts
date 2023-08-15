@@ -2,13 +2,14 @@ import { Injectable } from '@angular/core';
 import { AngularFirestore, QuerySnapshot } from '@angular/fire/compat/firestore';
 import { Room } from './room.model';
 import { Subject } from 'rxjs';
+import { Firestore, collection, collectionData } from '@angular/fire/firestore';
 
 @Injectable({
   providedIn: 'root'
 })
 export class RoomsService {
 
-  constructor(private af: AngularFirestore) {
+  constructor(private af: AngularFirestore, private db: Firestore) {
     this.getRooms();
    }
 

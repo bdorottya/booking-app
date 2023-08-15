@@ -22,6 +22,7 @@ export class Booking{
     idCardNo: string;
   }
   bookingUpdated?:boolean;
+  progress?:any;
 
 
   constructor(){

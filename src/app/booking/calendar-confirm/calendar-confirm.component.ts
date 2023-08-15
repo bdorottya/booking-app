@@ -57,7 +57,6 @@ export class CalendarConfirmComponent implements OnInit, OnChanges{
           this.bookingForm.get('departureDate')?.setValue(this.date.transform(this.selectedRange?.end, 'yyyy.MM.dd'));
         }
       }
-
   }
 
   startBooking(){
@@ -82,6 +81,10 @@ export class CalendarConfirmComponent implements OnInit, OnChanges{
         console.log(err);
       })
     }
+  }
+
+  goBack(){
+    this.dialogRef.close();
   }
 
 }
