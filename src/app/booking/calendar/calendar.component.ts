@@ -56,7 +56,7 @@ export class CalendarComponent implements OnInit {
     console.log(this.bookedRangeValues, this.bookedDays);
     this.isLoading = false;
     this.rService.room$.subscribe(data =>{
-      this.rooms.push(data);
+      //this.rooms.push(data);
     })
   }
 

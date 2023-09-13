@@ -1,5 +1,5 @@
 import { AuthGuardService } from './guards/auth.guard';
-import { AngularFireModule } from '@angular/fire/compat';
+import { AngularFireModule, FIREBASE_OPTIONS } from '@angular/fire/compat';
 import { BookingsComponent } from './booking/bookings/bookings.component';
 import { BookingModule } from './booking/booking.module';
 import { BrowserModule } from '@angular/platform-browser';
@@ -74,7 +74,9 @@ import { SelectChangeDirective } from './select-change.directive';
     provideAuth(() => getAuth()),
     provideFirestore(() => getFirestore())
   ],
-  providers: [AuthGuardService],
+  providers: [AuthGuardService,
+    {provide: FIREBASE_OPTIONS, useValue: environment.firebase}
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

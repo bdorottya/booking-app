@@ -40,8 +40,8 @@ export class BookingsComponent implements OnInit, OnDestroy {
     this.appService.activeRoute.next('/bookings');
     this.allBooking$ = this.bookingService.getBookings();
     this.getActiveBookings();
-    this.roomService.room$.subscribe(data =>{
-      this.rooms = [...this.rooms, data];
+    this.roomService.getRooms().subscribe(rooms =>{
+      this.rooms = rooms;
     })
     /*console.log(this.allBooking);
     this.appService.activeRoute.next('bookings');

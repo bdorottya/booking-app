@@ -23,6 +23,7 @@ export class ForthcomingBookingsComponent implements OnInit {
   @Input() rooms: Room[] = [];
 
   length!:number;
+  today = new Date();
 
 
   ngOnInit(): void {

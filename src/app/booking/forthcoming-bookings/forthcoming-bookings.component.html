@@ -15,7 +15,8 @@
     <div class="data-row" *ngFor="let book of forthcomingBooking$ | async" (click)="bookingDetails(book)"
      [ngClass]="book.bookingStatus == 'Pending' ? 'pending-col' : '' ||
     book.bookingStatus == 'Accepted' ? 'accepted-col' : '' ||
-    book.bookingStatus == 'Declined' ? 'declined-col' : ''">
+    book.bookingStatus == 'Declined' ? 'declined-col' : ''
+    ">
       <div class="col">{{book.roomNo}}</div>
       <div class="col">{{dateConverter(book.bookingDate) | date: 'yyyy.MM.dd'}}</div>
       <div class="col">{{book.guestName}}</div>

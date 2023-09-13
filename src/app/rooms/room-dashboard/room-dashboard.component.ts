@@ -3,14 +3,9 @@ import { AppService } from 'src/app/app.service';
 import { Room } from '../room.model';
 import { RoomsService } from '../rooms.service';
 import { BookingService } from 'src/app/booking/booking.service';
-import { Booking } from 'src/app/booking/booking.model';
 import { Timestamp } from '@angular/fire/firestore';
 import { DateRange } from '@angular/material/datepicker';
-
-export class Connected{
-  booking!: Booking;
-  room!: Room;
-}
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-room-dashboard',
@@ -22,16 +17,14 @@ export class RoomDashboardComponent implements OnInit{
   constructor(private appService:AppService, private roomService: RoomsService,
     private bookingService: BookingService){}
 
-  allRooms: Room[] = [];
-  connectedBookings: Connected[] = [];
+  allRooms: Observable<Room[]> = new Observable<Room[]>();
+
 
   bookedRanges:DateRange<Date>[] = [];
 
   ngOnInit(): void {
     this.appService.activeRoute.next('rooms');
-    this.roomService.room$.subscribe(obs =>{
-      this.allRooms.push(obs);
-    })
+    this.allRooms = this.roomService.getRooms();
 
   }
 

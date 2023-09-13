@@ -1,9 +1,9 @@
 <aside>
   <nav>
     <button routerLink="/admin" mat-button [ngClass]="this.activeRoute == 'admin' ? 'active-route' : ''">Dashboard</button>
-    <button routerLink="/bookings"mat-button [ngClass]="this.activeRoute == 'bookings' ? 'active-route' : ''">Bookings</button>
+    <button routerLink="/bookings"mat-button [ngClass]="this.activeRoute == '/bookings' ? 'active-route' : ''">Bookings</button>
     <button routerLink="/admin/rooms" mat-button [ngClass]="this.activeRoute == 'rooms' ? 'active-route' : ''">Rooms</button>
-    <button mat-button>Calendar</button>
+    <button routerLink="/weekly-view" mat-button [ngClass]="this.activeRoute == '/weekly' ? 'active-route' : ''">Calendar</button>
     <button mat-button>Staff</button>
     <button mat-button>Reviews</button>
     <button mat-button>Repairs</button>

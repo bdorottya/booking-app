@@ -1,13 +1,41 @@
 <div class="week-container">
   <div class="days-header">
-    <div class="col">
-      <p>08.07</p>
-      <p>Monday</p>
+    <div class="separator">
+      Room Number
+    </div>
+    <div class="dates">
+      <div class="col" *ngFor="let day of week">
+        <p [ngClass]="today.getDate() == day.getDate() ? 'today' : ''">{{day | date: 'MM.dd'}}</p>
+        <p [ngClass]="today.getDate() == day.getDate() ? 'today' : ''">{{day | date: 'EEEE'}}</p>
+      </div>
+    </div>
+    <div class="controls">
+      <button mat-button (click)="prevWeek()">Prev</button>
+      <button mat-button (click)="nextWeek()">Next</button>
     </div>
   </div>
   <div class="room-container">
-    <div class="room-row" *ngFor="let room of rooms">
-      <p>{{room.roomNo}}</p>
+    <div class="room-row" *ngFor="let room of rooms | async">
+      <div class="separator">
+        <p>{{room.roomNo}}</p>
+        <p>{{room.roomType}}</p>
+        <p>Beds: {{room.beds}}</p>
+      </div>
+      <div class="bookings">
+        <div *ngFor="let day of week" class="col">
+          <div *ngFor="let booking of bookings | async" class="booking-list">
+            <div class='booking' *ngIf="booking.roomNo == room.roomNo && insideBooking(day, booking)">
+              <h5>{{booking.guestName}}</h5>
+              <h5><span>Number of Guests: </span>{{booking.numberOfGuests}}</h5>
+              <button *ngIf="dateConverter(booking.arrivalDate).getDate() == day.getDate()"
+              mat-flat-button (click)="bookingDetails(booking)">
+                Details
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="placeholder"></div>
     </div>
   </div>
 </div>

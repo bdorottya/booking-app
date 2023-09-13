@@ -2,7 +2,7 @@
   <mat-tab-group>
     <mat-tab label="First floor">
       <div class="room-card-container">
-        <div class="room-card" *ngFor="let room of allRooms">
+        <div class="room-card" *ngFor="let room of allRooms | async">
           <div>
             <h3>{{room.roomNo}}</h3>
             <h3>{{room.occupied ? 'Occupied' : 'Not Occupied'}}</h3>
@@ -24,6 +24,4 @@
     <mat-tab label="Second floor"></mat-tab>
   </mat-tab-group>
 </div>
-
-<app-weekly-view [rooms]="allRooms"></app-weekly-view>
 

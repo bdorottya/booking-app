@@ -14,7 +14,10 @@ const routes: Routes = [
   {path: 'calendar', component: CalendarComponent},
   {path: 'admin', component: AdminBoardComponent, canActivate: [AuthGuardService]},
   {path: 'login', component: LoginComponent},
-  {path: 'bookings', component: BookingsComponent, canActivate: [AuthGuardService]},
+  {
+    path: 'bookings',
+    loadChildren: () => import('./booking/booking.module').then(m => m.BookingModule)
+  },
   {path: 'home', component: HomePageComponent},
   {path: 'rooms', component: AllRoomsComponent},
   {path: 'admin/rooms', component: RoomDashboardComponent, canActivate: [AuthGuardService]},

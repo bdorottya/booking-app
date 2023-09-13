@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore, QuerySnapshot } from '@angular/fire/compat/firestore';
 import { Room } from './room.model';
-import { Subject } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { Firestore, collection, collectionData } from '@angular/fire/firestore';
 
 @Injectable({
@@ -13,19 +13,17 @@ export class RoomsService {
     this.getRooms();
    }
 
-  room$: Subject<Room> = new Subject<Room>();
+  room$: Subject<Room[]> = new Subject<Room[]>();
 
   roomArray:Room[] = [];
 
-  getRooms(){
+  getRooms(): Observable<Room[]>{
     this.roomArray = [];
-    const db = this.af.collection('rooms');
-    db.ref.get().then(data => {
-      data.forEach(room =>{
-        let roomData = room.data() as Room;
-        this.room$.next(roomData);
-      })
+    const ref = collection(this.db, 'rooms');
+    const data = collectionData(ref, {
+      idField: 'id',
     })
+    return data as Observable<Room[]>;
 
   }
 

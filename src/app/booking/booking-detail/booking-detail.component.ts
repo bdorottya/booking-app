@@ -31,6 +31,8 @@ export class BookingDetailComponent implements OnInit {
   allRooms:Room[];
   isActive:boolean;
 
+  today = new Date();
+
   mode:string = '';
 
   editBookingForm:FormGroup = new FormGroup({
@@ -68,6 +70,12 @@ export class BookingDetailComponent implements OnInit {
 
   declineBooking(){
 
+  }
+
+  archiveBooking(){
+    this.bookingService.changeBookingStatus(this.booking.id, 'Archived').then(data =>{
+      this.matDialogRef.close();
+    })
   }
 
   dateConverter(date:Date){

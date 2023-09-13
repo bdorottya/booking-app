@@ -24,6 +24,7 @@ import { ActiveBookingsComponent } from './active-bookings/active-bookings.compo
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import { WeeklyViewComponent } from './weekly-view/weekly-view.component';
 import { ArchivedBookingsComponent } from './archived-bookings/archived-bookings.component';
+import { BookingRoutingModule } from './booking-routing.module';
 
 
 
@@ -56,7 +57,8 @@ import { ArchivedBookingsComponent } from './archived-bookings/archived-bookings
     MatProgressBarModule,
     MatStepperModule,
     MatDividerModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    BookingRoutingModule
   ],
   providers: [DatePipe],
   exports: [CalendarComponent, WeeklyViewComponent]

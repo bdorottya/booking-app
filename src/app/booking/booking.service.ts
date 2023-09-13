@@ -15,7 +15,6 @@ export class BookingService {
 
   constructor(private af: AngularFirestore, private db: Firestore, private router: Router, private snackBar: MatSnackBar) {
     this.af.collection('bookings').stateChanges().subscribe(obs =>{
-      console.log(obs);
       if(obs.length == 1 && obs[0].type == 'added'){
         this.snackBar.open('New Booking!', 'View', {panelClass: 'new-booking', verticalPosition: 'top',
           duration: 4000});
@@ -34,26 +33,11 @@ export class BookingService {
       idField: 'id',
     })
     return data as Observable<Booking[]>;
-    /*const col = this.af.collection('bookings');
-    let bookingArray: Booking[] = [];
-    let q = collectionData()
-    col.ref.get().then(doc =>{
-      doc.forEach(data =>{
-        let booking = data.data() as Booking;
-        booking.id = data.id;
-        booking.arrivalDate = (booking.arrivalDate as unknown as Timestamp).toDate();
-        booking.departureDate = (booking.departureDate as unknown as Timestamp).toDate();
-        booking.bookingDate = (booking.bookingDate as unknown as Timestamp).toDate();
-        bookingArray.push(booking);
-      });
-      this.allBooking$.next(bookingArray);
-    })*/
   }
 
  async newBooking(booking:Booking){
     const db = this.af.collection('bookings');
     db.doc().set(booking).then(() =>{
-      console.log('new booking added', booking);
       this.allBooking$.next([booking]);
       this.refreshData();
     });
